@@ -1,0 +1,15 @@
+extends template
+block variables
+    -   var title = 'Галерея'
+block source
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" )
+    script(src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js")
+block content
+    body(onload = 'createGallery()')
+        .imagesFlex(name = 'imageRow')
+        .imagesFlex(name = 'imageRow')
+        .imagesFlex(name = 'imageRow')
+        .imagesFlex(name = 'imageRow')
+        .imagesFlex(name = 'imageRow')
+    footer
+        script(src = 'js/gallery.js')

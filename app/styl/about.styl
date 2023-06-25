@@ -1,0 +1,35 @@
+.about
+  padding 20px
+  display grid
+  grid-template-columns 10% 70%
+  grid-template-rows 1fr
+  column-gap 40px
+  justify-items stretch
+  grid-template-areas "A B"
+  background #ffffff
+  //margin-bottom 100px
+  //border thin solid black
+  hr
+    width 25%
+  i
+    font-size 1.3em
+    margin-left 30px
+  p
+    text-align justify
+    margin-right 35px
+  img
+    height 40%
+    width 60%
+  h2
+    text-align center
+    //border thin solid black
+  .img1
+    grid-area A
+  .text1
+    grid-area B
+
+@media (max-width:700px)
+  .about
+    grid-template-columns 1fr
+    grid-template-rows auto auto
+    grid-template-areas "A""B"

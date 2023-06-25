@@ -1,0 +1,98 @@
+extends template
+block variables
+    -    var title = 'Статистика ДПТ'
+
+    -   const columnNames = ['Город', 'Дата проишествия','Марка машины']
+
+    -   const city = ['Москва','Уссурийск','Новокузнецк','Ульяновск','Магадан','Воронеж','Сочи','Пенза','Санкт-Петербург','Санкт-Петербург','Владивосток','Владивосток','Владивосток','Владивосток','Владивосток','Калининград','Хабаровск','Хабаровск','Петрозаводск','Петрозаводск','Тула','Тула','Брянск','Брянск','Орёл','Орёл','Челябинск','Челябинск','Уфа','Уфа','Кострома','Кострома','Калуга','Калуга','Геленджик','Геленджик','Иркутск','Иркутск','Москва','Уссурийск','Новокузнецк','Ульяновск','Магадан','Воронеж','Сочи','Находка','Находка','Воронеж','Москва','Владивосток']
+    -   const data = ['24.01.22','17.05.22','07.12.21','14.10.22','15.07.22','05.08.22','31.08.22','16.02.22','20.11.21','20.11.21','27.06.22','27.06.22','14.09.22','14.09.22','14.09.22','07.04.22','11.07.22','11.07.22','25.01.22','25.01.22','03.03.22','03.03.22','20.10.22','20.10.22','28.10.22','28.10.22','10.02.22','10.02.22','01.03.22','01.03.22','30.12.21','30.12.21','31.05.21','31.05.21','05.07.22','05.07.22','13.02.22','13.02.22','24.01.22','17.05.22','07.12.21','14.10.22','15.07.22','05.08.22','31.08.22','01.08.22','01.08.22','04.09.22','17.07.22','15.03.22']
+    -   const marka = ['CITROEN','AUDI','BMW','AUDI','HONDA','HONDA','HYUNDAI','MAZDA','LEXUS','MERCEDES','TOYOTA','SUBARU','SUBARU','HYUNDAI','HONDA','AUDI','HONDA','HYUNDAI','MAZDA','CITROEN','LEXUS','BMW','MERCEDES','AUDI','CHEVROLET','FIAT','FIAT','KIA','MAYBACH','MAZDA','LAMBORGHINI','LEXUS','DAIHATSU','CITROEN','CHERY','CADILLAC','BMW','MAZDA','LAMBORGHINI','MAZDA','PEUGEOT','OPEL','PEUGEOT','NISSAN','MITSUBISHI','RENAULT','PEUGEOT','MASERATI','ROLLS-ROYCE','SUBARU']
+
+block source
+    script(src="http://d3js.org/d3.v7.js")
+
+block content
+    body(onload = "drawTable()")
+        .details_block
+            details
+                summary График
+                form
+                    .field
+                        legend Значение по оси OX:
+                            br
+                            input(type='radio' name='ox' value='City' checked="checked")
+                            |  Город
+                            br
+                            input(type='radio' name='ox' value='Marka')
+                            |  Автомобиль
+                            br
+                    .field
+                        legend Тип графика:
+                            br
+                            input(type='radio' name='type' value='dotted' checked="checked")
+                            |  Точечный
+                            br
+                            input(type='radio' name='type' value='histogram')
+                            |  Гистограмма
+                            br
+                    .field
+                        legend Результат:
+                            br
+                            input(type='checkbox' name='oy')
+                            |  Максимальное количество пострадавших
+                            br
+                            input(type='checkbox' name='oy')
+                            |  Минимальное количество пострадавших
+                            br
+                            input(type="button" value="Построить" id="graphButton")
+        .details_block
+            details
+                summary Фильтр
+                br
+                label Город:
+                    input(type='text' name='name' id='CityFilter')
+                br
+                label Пострадавшие от:
+                    input(type='text' name='name' id='InjuredFilter1')
+                br
+                label Пострадавшие до:
+                    input(type='text' name='name' id='InjuredFilter2')
+                br
+                label Марка машины:
+                    input(type='text' name='name' id='MarkaFilter')
+                br
+                input(type='button' value='Найти' onclick='filterButton()')
+                br
+        .details_block
+            details
+                summary Сортировка
+                br
+                | Первый уровень:
+                select(name='audith' id='selectLevel1' onchange='getActualOptions()')
+                    option(value='No' selected) Нет
+                    option(value='City') Город
+                    option(value='Injured') Пострадавшие
+                    option(value='Marka') Марка машины
+                br
+                label По убыванию?
+                    input(type = 'checkbox' id = 'sortOrder1')
+                br
+                |  Второй уровень:
+                select(name='autor' id='selectLevel2' onchange='getActualOptions()')
+                    option(value='No' selected) Нет
+                    option(value='City') Город
+                    option(value='Injured') Пострадавшие
+                    option(value='Marka') Марка машины
+                br
+                label По убыванию?
+                    input(type = 'checkbox' id = 'sortOrder2')
+                br
+                input(type='button' value='Найти' onclick='sortButton()')
+        svg
+        br
+        input(type='button' value='Сброс' onclick='resetButton()')
+        input(type = "button" value = "Скрыть таблицу" id = 'hideButton')
+
+        .tableBlock(id = 'table')
+    script(src = 'js/WorkingWithData.js')
+    script(src = 'js/graph.js')

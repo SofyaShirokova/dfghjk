@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Статистика ДПТ</title>
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="http://d3js.org/d3.v7.js"></script>
+  </head>
+  <body>
+    <div class="menuFlex">
+      <div class="imgItem"><a href="index.html"><img src="img/logo.png"></a></div>
+      <div class="menuItem"><a href="index.html">Последнее</a></div>
+      <div class="menuItem"><a href="index.html">Пользователи</a></div>
+      <div class="menuItem"><a href="list.html">Статистика ДТП</a></div>
+      <div class="menuItem"><a href="index.html">Клуб ВК</a></div>
+      <div class="menuItem"><a href="index.html">Контакты</a></div>
+      <div class="menuItem"><a href="Gallery).html">Галерея</a></div>
+    </div>
+    <div class="centralBlock">
+      <body onload="drawTable()">
+        <div class="details_block">
+          <details>
+            <summary>График</summary>
+            <form>
+              <div class="field">
+                <legend>Значение по оси OX:<br>
+                  <input type="radio" name="ox" value="City" checked="checked"> Город<br>
+                  <input type="radio" name="ox" value="Marka"> Автомобиль<br>
+                </legend>
+              </div>
+              <div class="field">
+                <legend>Тип графика:<br>
+                  <input type="radio" name="type" value="dotted" checked="checked"> Точечный<br>
+                  <input type="radio" name="type" value="histogram"> Гистограмма<br>
+                </legend>
+              </div>
+              <div class="field">
+                <legend>Результат:<br>
+                  <input type="checkbox" name="oy"> Максимальное количество пострадавших<br>
+                  <input type="checkbox" name="oy"> Минимальное количество пострадавших<br>
+                  <input type="button" value="Построить" id="graphButton">
+                </legend>
+              </div>
+            </form>
+          </details>
+        </div>
+        <div class="details_block">
+          <details>
+            <summary>Фильтр</summary><br>
+            <label>Город:
+              <input type="text" name="name" id="CityFilter">
+            </label><br>
+            <label>Пострадавшие от:
+              <input type="text" name="name" id="InjuredFilter1">
+            </label><br>
+            <label>Пострадавшие до:
+              <input type="text" name="name" id="InjuredFilter2">
+            </label><br>
+            <label>Марка машины:
+              <input type="text" name="name" id="MarkaFilter">
+            </label><br>
+            <input type="button" value="Найти" onclick="filterButton()"><br>
+          </details>
+        </div>
+        <div class="details_block">
+          <details>
+            <summary>Сортировка</summary><br>Первый уровень:
+            <select name="audith" id="selectLevel1" onchange="getActualOptions()">
+              <option value="No" selected>Нет</option>
+              <option value="City">Город</option>
+              <option value="Injured">Пострадавшие</option>
+              <option value="Marka">Марка машины</option>
+            </select><br>
+            <label>По убыванию?
+              <input type="checkbox" id="sortOrder1">
+            </label><br> Второй уровень:
+            <select name="autor" id="selectLevel2" onchange="getActualOptions()">
+              <option value="No" selected>Нет</option>
+              <option value="City">Город</option>
+              <option value="Injured">Пострадавшие</option>
+              <option value="Marka">Марка машины</option>
+            </select><br>
+            <label>По убыванию?
+              <input type="checkbox" id="sortOrder2">
+            </label><br>
+            <input type="button" value="Найти" onclick="sortButton()">
+          </details>
+        </div>
+        <svg></svg><br>
+        <input type="button" value="Сброс" onclick="resetButton()">
+        <input type="button" value="Скрыть таблицу" id="hideButton">
+        <div class="tableBlock" id="table"></div>
+      </body>
+      <script src="js/WorkingWithData.js"></script>
+      <script src="js/graph.js"></script>
+    </div>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
